@@ -1,0 +1,354 @@
+/* ตั้งค่าพื้นฐาน (Reset) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+/* พื้นหลัง Detail แต่ละหน้า */
+.bg-kiwmaeparn{
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
+    url('kiwmaeparn_img/kiwmaeparn.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.bg-maeya{
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
+    url('maeya_img/maeya.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+.bg-doiinthanon{
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
+    url('/doiinthanon_img/bg_intanon.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+.bg-templejom{
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
+    url('templejom_img/templede-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+.bg-angkebnam{
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
+    url('angkebnam_img/cover.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+.bg-scikhunwang{
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
+    url('scikhunwang_img/bg-khunwang.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+.bg-umongsakura{
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
+    url('umongsakura_img/umog_maewang.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+.bg-tevasiva{
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
+    url('tevasiva_img/bg-detevasiva.jpg');
+    background-size: cover;
+    background-position: left;
+    background-attachment: fixed; 
+}
+/* คอนเทนเนอร์หลัก */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ส่วนหัว */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.1rem;
+    color: #ddd;
+    font-weight: 300;
+}
+
+/* แกลเลอรี่รูปภาพ 3 รูปบน */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 10px;
+
+    max-width: 1000px; /* กำหนดความกว้างสูงสุดที่ต้องการให้เล็กลง */
+    margin: 0 auto 10px auto; /* จัดให้อยู่กึ่งกลางหน้าจอ */
+    width: 100%; /* เพื่อให้ responsive เมื่อจอเล็กกว่า 800px */
+}
+
+.gallery-item {
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+}
+
+/* แถบเรตติ้งและ Google Maps */
+.info-bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 200px;
+    padding: 0 10px;
+}
+
+.rating {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.stars {
+    color: #fff;
+}
+
+.google-maps-link {
+    background-color: white;
+    color: #333;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.google-maps-link:hover {
+    transform: translateY(-2px);
+}
+
+.google-maps-link i {
+    color: #B89676;
+    font-size: 1.2rem;
+}
+
+/* ส่วน Grid ด้านล่าง (3 การ์ด) */
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr 0.8fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* สไตล์ร่วมของการ์ด (Glassmorphism) */
+.glass-card {
+    background: rgba(40, 40, 40, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* การ์ดคำอธิบาย (ซ้าย) */
+.desc-card {
+    text-align: center;
+    font-weight: 300;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.desc-card .small-note {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* การ์ดรีวิว (กลาง) */
+.reviews-card {
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.review-item {
+    display: flex;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 12px;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.user-icon {
+    width: 30px;
+    text-align: center;
+    padding-top: 2px;
+}
+
+.review-content h4 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.review-content h4 span {
+    font-size: 0.8rem;
+    font-weight: 300;
+    opacity: 0.7;
+    margin-left: 5px;
+}
+
+.review-content p {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* การ์ดแผนที่ (ขวา) */
+.map-card {
+    padding: 10px;
+    position: relative;
+    background: rgba(60, 60, 60, 0.8);
+    overflow: hidden;
+    text-align: center;
+}
+
+.map-bg {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    opacity: 0.8;
+    min-height: 150px;
+}
+
+.map-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: background 0.3s;
+}
+
+.map-btn:hover {
+    background: rgba(0,0,0,0.9);
+}
+
+/* ---------------- Responsive Design ---------------- */
+
+/* Tablet (หน้าจอขนาดกลาง) */
+@media (max-width: 992px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .bottom-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .map-card {
+        grid-column: span 2;
+        min-height: 200px;
+    }
+}
+
+/* Mobile (หน้าจอมือถือ) */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        /* ในมือถืออาจไม่ต้อง fix background เพื่อ performance */
+        background-attachment: scroll; 
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+    
+    header p {
+        font-size: 0.9rem;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .info-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .bottom-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .map-card {
+        grid-column: span 1;
+        min-height: 250px;
+    }
+}

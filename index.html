@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNSEEN.CNX</title>
+    <link rel="stylesheet" href="base.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Sarabun:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="slider-page">
+        <div class="slider-container">
+            <div class="title-group">
+                <h2>UNSEEN.CNX</h2>
+                <p>เว็บไซต์รวมแหล่งท่องเที่ยว ให้คุณได้สัมผัสประสบการณ์ท่องเที่ยวทั่วเชียงใหม่</p>
+            </div>
+        <div class="carousel-wrapper">
+            <button class="nav-btn left">❮</button>
+            <div class="carousel-track-container">
+                    <div class="carousel-track" id="carouselTrack">
+                <div class="img-box">
+                    <a href="doiinthanon_detail.html">
+                        <img src="doiinthanon_img/doiinthanon.jpg">
+                        <div class="img-caption">อุทยานแห่งชาติ<br>ดอยอินทนนท์</div>
+                    </a>
+                </div>
+                <div class="img-box">
+                    <a href="detail_umongsakura.html">
+                        <img src="umongsakura_img/umog_maewang.jpg">
+                        <div class="img-caption">อุโมงค์ซากุระขุนวาง</div>
+                    </a>
+                </div>
+                <div class="img-box">
+                    <a href="detail_kiwmaeparn.html">  
+                         <img src="kiwmaeparn_img/kiwmaeparn.jpg">
+                        <div class="img-caption">กิ่วแม่ปาน</div>
+                    </a>
+                </div>
+                <div class="img-box">
+                    <a href="detail_maeya.html">
+                        <img src="maeya_img/maeya.jpg">
+                        <div class="img-caption">น้ำตกแม่ยะ</div>
+                    </a> 
+                </div>
+                <div class="img-box">
+                    <a href="detail_angkebnam.html">
+                        <img src="angkebnam_img/maewang_angnam.jpg">
+                        <div class="img-caption">อ่างเก็บน้ำห้วยมะนาว</div>
+                    </a>
+                </div>
+                <div class="img-box">
+                    <a href="templejom_detail.html">
+                        <img src="templejom_img/templejom-bg.jpg">
+                        <div class="img-caption">วัดพระธาตุศรีจอมทอง</div>
+                    </a>
+                </div>
+                <div class="img-box">
+                    <a href="detail_scikhunwang.html">
+                        <img src="scikhunwang_img/khunwang1.jpg">
+                        <div class="img-caption">ศูนย์วิจัยเกษตรหลวง <br>(ขุนวาง)</div>
+                    </a>
+                </div>
+                <div class="img-box">
+                    <a href="detail_tevasiva.html">
+                        <img src="temple_maewang.jpg">
+                        <div class="img-caption">เทวสถานพระศิวะ</div>
+                    </a>
+                </div>
+            </div>
+            </div>
+            <button class="nav-btn right">❯</button>
+        </div>
+            <div class="bottom-grid">
+                 <a href="maewang.html" class="card-link">
+                    <div class="glass-card">
+                    <div class="placeholder-img">
+                    <img src="maewang-bg.jpg" alt="">
+                    </div>
+                    <div class="card-text">
+                     <h2>แม่วาง (Maewhang) </h2>
+                    </div>
+                </div>
+                </a>
+                <a href="jomtong.html" class="card-link">
+                    <div class="glass-card">
+                    <div class="placeholder-img">
+                    <img src="jomtong-bg.jpg" alt="">
+                    </div>
+                    <div class="card-text">
+                    <h2>จอมทอง (Jomthong) </h2>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    const track = document.querySelector('#carouselTrack');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.nav-btn.right');
+    const prevButton = document.querySelector('.nav-btn.left');
+    
+    let currentIndex = 0;
+
+    const updateCarousel = () => {
+        // 1. ดึงขนาดจริงขององค์ประกอบ (เพื่อให้ Responsive และคำนวณเป๊ะ)
+        const container = track.parentElement;
+        const containerWidth = container.offsetWidth; // 600px
+        const slideWidth = slides[0].offsetWidth; // 190px
+        const gap = 30; // ระยะห่าง
+        const totalSlides = slides.length;
+
+        // 2. คำนวณระยะเลื่อนปกติ (เพื่อให้รูปที่เลือกอยู่กึ่งกลางกรอบพอดี)
+        const centerOffset = (containerWidth / 2) - (slideWidth / 2);
+        let moveDistance = (currentIndex * (slideWidth + gap)) - centerOffset;
+
+        // 3. แก้ไขปัญหา "รูปแหว่ง" (ล็อคขอบซ้าย-ขวา)
+        // ดักขอบซ้าย: ถ้ารูปแรกจะแหว่ง ให้หยุดที่ 0
+        if (moveDistance < 0) {
+            moveDistance = 0;
+        }
+
+        // ดักขอบขวา: คำนวณระยะไกลที่สุดที่เลื่อนได้
+        // สูตรคือ (ความกว้างรวมของทุกรูป + gap) - ความกว้างของกรอบ
+        const maxScroll = (totalSlides * slideWidth) + ((totalSlides - 1) * gap) - containerWidth;
+        
+        // ถ้าเลื่อนไปจนรูปสุดท้ายจะแหว่ง ให้หยุดที่ตำแหน่งขวาสุดพอดี
+        // เราบวกเพิ่ม 40px (จาก padding 20px ซ้ายขวา) เพื่อให้ชนขอบมนพอดี
+        const adjustedMaxScroll = maxScroll + 40; 
+
+        if (moveDistance > adjustedMaxScroll) {
+            moveDistance = adjustedMaxScroll;
+        }
+
+        // 4. สั่งเลื่อนแถวรูปภาพ
+        track.style.transform = `translateX(${-moveDistance}px)`;
+
+        // 5. จัดการสถานะ Active (รูปกลาง) และ Side (รูปข้าง)
+        slides.forEach((slide, index) => {
+            slide.classList.remove('active', 'side');
+            if (index === currentIndex) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.add('side');
+            }
+        });
+    };
+
+    // ปุ่มไปข้างหน้า
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+
+    // ปุ่มย้อนกลับ
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+
+    // อัปเดตตำแหน่งเมื่อมีการย่อ/ขยายหน้าจอ
+    window.addEventListener('resize', updateCarousel);
+
+    // เรียกทำงานครั้งแรกตอนโหลดหน้าเว็บ
+    window.addEventListener('load', updateCarousel);
+    updateCarousel();
+</script>
+</body>
+</html>

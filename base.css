@@ -1,0 +1,365 @@
+:root {
+    --bg-cream: #fdf5e6;
+    --pastel-blue: #e3f2fd;
+    --pastel-purple: #d1b3d8;
+    --pastel-yellow: #f5e1b5;
+    --deep-green: #2d4a3e;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-color: var(--bg-cream);
+}
+
+/* --- Section 1: Category --- */
+.category-page {
+    padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.unseen-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.purple-dot {
+    width: 20px;
+    height: 20px;
+    background: var(--pastel-purple);
+    border-radius: 6px;
+}
+
+.unseen-logo h1 { font-family: 'Montserrat', sans-serif; letter-spacing: 2px; }
+
+.layout-grid {
+    display: flex;
+    gap: 20px;
+    height: 450px;
+}
+
+.side-item {
+    flex: 1;
+    background-color: var(--pastel-blue);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #b08d57;
+    font-weight: bold;
+}
+
+.main-items {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-wide {
+    flex: 1;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.maewhang-card { background-color: var(--pastel-purple); }
+.jomthong-card { background-color: var(--pastel-yellow); color: #e67e22; }
+
+/* --- Section 2: Slider & Green Background --- */
+.slider-page {
+    background: linear-gradient(rgba(45, 74, 62, 0.8), rgba(45, 74, 62, 0.8)), 
+    url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+
+    min-height: 100vh;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* 👈 กลางแนวตั้ง */
+    align-items: center;       /* 👈 กลางแนวนอน */
+
+    color: white;
+    text-align: center;
+}
+
+.carousel-track-container {
+    width: 600px; 
+    overflow: hidden; 
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* แนะนำให้ซ้าย-ขวาเท่ากันเพื่อให้รูป Active อยู่กลางจอจริงๆ */
+    padding: 40px 20px; 
+    
+    /* --- เพิ่ม 2 บรรทัดนี้เพื่อให้ขอบมนสวยทั้งสองฝั่ง --- */
+    border-radius: 25px; 
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    
+    /* กรณีอยากให้ฝั่งขวากว้างกว่าซ้ายเป็นพิเศษ (ไม่แนะนำเพราะจะทำให้รูปไม่กลางจอ) */
+    /* padding-right: 40px; */ 
+}
+
+.carousel-track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+    /* สำคัญ: ให้จุดเริ่มต้นเริ่มที่กึ่งกลางของ Container */
+    align-items: center;
+}
+
+.title-group h2 { font-size: 2.5rem; letter-spacing: 3px; margin-bottom: 10px; }
+.title-group p { font-weight: 300; opacity: 0.9; margin-bottom: 40px; }
+
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.img-box {
+    position: relative; /* สำคัญ: เพื่อให้ caption อิงตำแหน่งกับรูป */
+    min-width: 190px;
+    width: 190px;
+    height: 190px;
+    flex-shrink: 0;
+    border-radius: 25px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+
+.img-box a {
+    text-decoration: none; /* เอาเส้นใต้ชื่อออก */
+    color: inherit;       /* ใช้สีตามที่ตั้งไว้ใน caption */
+    display: block;       /* ให้ครอบคลุมพื้นที่ทั้งหมด */
+    width: 100%;
+    height: 100%;
+}
+
+.img-box.side a {
+    pointer-events: none;
+    cursor: default;
+}
+
+.img-box.active a {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* เพิ่มความเบลอให้รูปข้างๆ เพื่อให้ตัวกลางเด่นขึ้น */
+.img-box.side {
+    opacity: 0.5 !important;
+    transform: scale(0.85);
+    filter: blur(1px);
+}
+
+.img-box.active {
+    opacity: 1 !important;
+    transform: scale(1.15); /* ขยายเฉพาะรูป */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+.img-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); /* ไล่เฉดเงาดำให้อ่านง่าย */
+    color: white;
+    padding: 20px 10px 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: 'Sarabun', sans-serif;
+    
+    /* สถานะเริ่มต้น: ซ่อนไว้ */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+.img-box.active .img-caption {
+    opacity: 1 !important;
+    transform: translateY(0); /* ลอยขึ้นมานิดนึงตอนปรากฏ */
+}
+
+.bottom-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 20px;
+    display: flex;
+    max-width: 450px; width: 100%;
+    height: 180px;
+    gap: 20px;
+}
+
+.placeholder-img {
+    width: 140px;
+    height: 140px;
+    background: #fff;
+    border-radius: 15px;
+    opacity: 0.8;
+    overflow: hidden;
+}
+
+.placeholder-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     /* ✅ ถูกที่ */
+    display: block;
+}
+
+.card-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.card-text h2{
+    text-align: center;
+    font-family: "Sarabun", sans-serif;
+    font-weight: 400;
+    font-style: bold;
+    /*-webkit-text-stroke: 1px black;*/
+    font-size: 1.6rem;
+}
+.section-divider { border: none; height: 50px; }
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* --- Responsive Design --- */
+
+/* สำหรับแท็บเล็ตและหน้าจอขนาดกลาง (ต่ำกว่า 1024px) */
+@media (max-width: 1024px) {
+    .carousel-track-container {
+        width: 600px; /* ลดขนาดตู้คอนเทนเนอร์ลง */
+    }
+    
+    .glass-card {
+        width: 400px;
+    }
+}
+
+/* สำหรับแท็บเล็ตแนวตั้ง (ต่ำกว่า 768px) */
+@media (max-width: 768px) {
+    .title-group h2 {
+        font-size: 2rem;
+    }
+
+    .carousel-wrapper {
+        gap: 15px;
+    }
+
+    .carousel-track-container {
+        width: 100%; /* ให้ยืดตามหน้าจอ */
+        max-width: 400px;
+    }
+
+    .img-box {
+        min-width: 150px;
+        width: 150px;
+        height: 150px;
+    }
+
+    .nav-btn {
+        font-size: 2rem;
+    }
+
+    .bottom-grid {
+        flex-direction: column; /* เรียงการ์ดข้างล่างเป็นแนวตั้ง */
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .glass-card {
+        width: 100%; /* การ์ดเต็มจอ */
+        max-width: 450px;
+        height: auto; /* ปรับความสูงตามเนื้อหา */
+    }
+}
+
+/* สำหรับมือถือ (ต่ำกว่า 480px) */
+@media (max-width: 480px) {
+    .slider-page {
+        padding: 40px 15px;
+    }
+
+    .title-group h2 {
+        font-size: 1.8rem;
+    }
+
+    .carousel-track-container {
+        max-width: 220px; /* โชว์รูปหลักรูปเดียวชัดๆ */
+    }
+
+    .img-box {
+        min-width: 200px; /* ปรับขนาดรูปให้เด่นขึ้นในจอมือถือ */
+        width: 200px;
+        height: 200px;
+    }
+
+    .nav-btn {
+        display: none; /* ซ่อนปุ่มลูกศรในมือถือ (ใช้การสไลด์แทนถ้ามี JS) */
+    }
+
+    .glass-card {
+        flex-direction: column; /* ในมือถือเล็กมาก ให้รูปอยู่บน ข้อความอยู่ล่าง */
+        align-items: center;
+        text-align: center;
+        height: auto;
+    }
+
+    .placeholder-img {
+        width: 100%;
+        height: 180px;
+    }
+
+    .card-text h2 {
+        font-size: 1.3rem;
+        margin-top: 10px;
+    }
+}
