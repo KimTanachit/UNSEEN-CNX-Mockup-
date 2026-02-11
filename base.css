@@ -338,19 +338,27 @@ body {
     }
 
     .carousel-track-container {
-        max-width: 250px; /* โชว์รูปหลักรูปเดียวชัดๆ */
+         width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
     }
-
-    .carousel-track-container {
-        gap: 10px; /* โชว์รูปหลักรูปเดียวชัดๆ */
+     .carousel-track {
+        display: flex;
     }
 
     .img-box {
-        min-width: 200px; /* ปรับขนาดรูปให้เด่นขึ้นในจอมือถือ */
-        width: 200px;
-        height: 200px;
+        flex: 0 0 100%;
+        height: 250px;
     }
 
+     .img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+        display: block;
+    }
+    
     .nav-btn {
         display: none; /* ซ่อนปุ่มลูกศรในมือถือ (ใช้การสไลด์แทนถ้ามี JS) */
     }
