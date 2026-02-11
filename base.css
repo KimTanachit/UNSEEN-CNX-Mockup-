@@ -341,6 +341,10 @@ body {
         max-width: 250px; /* โชว์รูปหลักรูปเดียวชัดๆ */
     }
 
+    .carousel-track-container {
+        gap:  20px; /* โชว์รูปหลักรูปเดียวชัดๆ */
+    }
+
     .img-box {
         min-width: 200px; /* ปรับขนาดรูปให้เด่นขึ้นในจอมือถือ */
         width: 200px;
