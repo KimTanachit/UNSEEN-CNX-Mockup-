@@ -338,9 +338,10 @@ body {
     }
 
     .carousel-track-container {
-         width: 100%;
-        padding: 0 15px;
+        width: 100%;
+        padding: 15px 15px;
         box-sizing: border-box;
+        border-radius: 25px;
     }
      .carousel-track {
         display: flex;
