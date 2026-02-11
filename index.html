@@ -99,90 +99,73 @@
     </section>
 
     <script>
-    const track = document.querySelector('#carouselTrack');
-    const slides = Array.from(track.children);
-    const nextButton = document.querySelector('.nav-btn.right');
-    const prevButton = document.querySelector('.nav-btn.left');
-    
-    let currentIndex = 0;
+        const track = document.querySelector('#carouselTrack');
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.nav-btn.right');
+        const prevButton = document.querySelector('.nav-btn.left');
+        
+        let currentIndex = 0;
+        let touchStartX = 0;
+        let isDragging = false;
 
-    // --- ส่วนที่เพิ่มสำหรับ Touch Screen ---
-    let touchStartX = 0;
-    let touchEndX = 0;
+        const updateCarousel = () => {
+            const container = track.parentElement;
+            const containerWidth = container.offsetWidth;
+            const slideWidth = slides[0].offsetWidth;
+            const gap = 30;
+            const totalSlides = slides.length;
 
-    const updateCarousel = () => {
-        const container = track.parentElement;
-        const containerWidth = container.offsetWidth;
-        const slideWidth = slides[0].offsetWidth;
-        const gap = 30; 
-        const totalSlides = slides.length;
+            const centerOffset = (containerWidth / 2) - (slideWidth / 2);
+            let moveDistance = (currentIndex * (slideWidth + gap)) - centerOffset;
 
-        const centerOffset = (containerWidth / 2) - (slideWidth / 2);
-        let moveDistance = (currentIndex * (slideWidth + gap)) - centerOffset;
+            // ล็อคขอบไม่ให้แหว่ง
+            if (moveDistance < 0) moveDistance = 0;
+            const maxScroll = (totalSlides * slideWidth) + ((totalSlides - 1) * gap) - containerWidth + 40;
+            if (moveDistance > maxScroll) moveDistance = maxScroll;
 
-        if (moveDistance < 0) moveDistance = 0;
+            track.style.transform = `translateX(${-moveDistance}px)`;
 
-        const maxScroll = (totalSlides * slideWidth) + ((totalSlides - 1) * gap) - containerWidth;
-        const adjustedMaxScroll = maxScroll + 40; 
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'side');
+                if (index === currentIndex) slide.classList.add('active');
+                else slide.classList.add('side');
+            });
+        };
 
-        if (moveDistance > adjustedMaxScroll) moveDistance = adjustedMaxScroll;
+        const handleNext = () => { if (currentIndex < slides.length - 1) { currentIndex++; updateCarousel(); } };
+        const handlePrev = () => { if (currentIndex > 0) { currentIndex--; updateCarousel(); } };
 
-        track.style.transform = `translateX(${-moveDistance}px)`;
+        nextButton.addEventListener('click', handleNext);
+        prevButton.addEventListener('click', handlePrev);
 
-        slides.forEach((slide, index) => {
-            slide.classList.remove('active', 'side');
-            if (index === currentIndex) {
-                slide.classList.add('active');
-            } else {
-                slide.classList.add('side');
+        // --- ระบบ Touch ที่ปรับปรุงใหม่ ---
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            isDragging = true;
+        }, { passive: true });
+
+        track.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            // ป้องกันหน้าเว็บขยับขณะปัดรูป (บางกรณี)
+        }, { passive: true });
+
+        track.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            const touchEndX = e.changedTouches[0].clientX;
+            const swipeDistance = touchStartX - touchEndX;
+
+            // ปรับค่าความไว (Sensivity): ปัดแค่ 30px ก็เลื่อนแล้ว
+            if (swipeDistance > 30) {
+                handleNext();
+            } else if (swipeDistance < -30) {
+                handlePrev();
             }
+            isDragging = false;
         });
-    };
 
-    // ฟังก์ชันเลื่อน
-    const handleNext = () => {
-        if (currentIndex < slides.length - 1) {
-            currentIndex++;
-            updateCarousel();
-        }
-    };
-
-    const handlePrev = () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateCarousel();
-        }
-    };
-
-    // คลิกปุ่ม
-    nextButton.addEventListener('click', handleNext);
-    prevButton.addEventListener('click', handlePrev);
-
-    // --- ระบบ Swipe บนมือถือ ---
-    track.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, {passive: true});
-
-    track.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, {passive: true});
-
-    const handleSwipe = () => {
-        const swipeDistance = touchStartX - touchEndX;
-        // ถ้าปัดไปทางซ้าย (ระยะบวก) ให้ไปรูปถัดไป
-        if (swipeDistance > 50) {
-            handleNext();
-        } 
-        // ถ้าปัดไปทางขวา (ระยะลบ) ให้ไปรูปก่อนหน้า
-        else if (swipeDistance < -50) {
-            handlePrev();
-        }
-    };
-
-    window.addEventListener('resize', updateCarousel);
-    window.addEventListener('load', updateCarousel);
-    updateCarousel();
-</script>
+        window.addEventListener('resize', updateCarousel);
+        window.addEventListener('load', updateCarousel);
+        updateCarousel();
+    </script>
 </body>
 </html>

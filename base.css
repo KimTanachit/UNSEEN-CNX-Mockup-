@@ -117,6 +117,9 @@ body {
     will-change: transform;
     /* สำคัญ: ให้จุดเริ่มต้นเริ่มที่กึ่งกลางของ Container */
     align-items: center;
+    touch-action: pan-y; 
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .title-group h2 { font-size: 2.5rem; letter-spacing: 3px; margin-bottom: 10px; }
