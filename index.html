@@ -106,40 +106,29 @@
     
     let currentIndex = 0;
 
+    // --- ส่วนที่เพิ่มสำหรับ Touch Screen ---
+    let touchStartX = 0;
+    let touchEndX = 0;
+
     const updateCarousel = () => {
-        // 1. ดึงขนาดจริงขององค์ประกอบ (เพื่อให้ Responsive และคำนวณเป๊ะ)
         const container = track.parentElement;
-        const containerWidth = container.offsetWidth; // 600px
-        const slideWidth = slides[0].offsetWidth; // 190px
-        const gap = 30; // ระยะห่าง
+        const containerWidth = container.offsetWidth;
+        const slideWidth = slides[0].offsetWidth;
+        const gap = 30; 
         const totalSlides = slides.length;
 
-        // 2. คำนวณระยะเลื่อนปกติ (เพื่อให้รูปที่เลือกอยู่กึ่งกลางกรอบพอดี)
         const centerOffset = (containerWidth / 2) - (slideWidth / 2);
         let moveDistance = (currentIndex * (slideWidth + gap)) - centerOffset;
 
-        // 3. แก้ไขปัญหา "รูปแหว่ง" (ล็อคขอบซ้าย-ขวา)
-        // ดักขอบซ้าย: ถ้ารูปแรกจะแหว่ง ให้หยุดที่ 0
-        if (moveDistance < 0) {
-            moveDistance = 0;
-        }
+        if (moveDistance < 0) moveDistance = 0;
 
-        // ดักขอบขวา: คำนวณระยะไกลที่สุดที่เลื่อนได้
-        // สูตรคือ (ความกว้างรวมของทุกรูป + gap) - ความกว้างของกรอบ
         const maxScroll = (totalSlides * slideWidth) + ((totalSlides - 1) * gap) - containerWidth;
-        
-        // ถ้าเลื่อนไปจนรูปสุดท้ายจะแหว่ง ให้หยุดที่ตำแหน่งขวาสุดพอดี
-        // เราบวกเพิ่ม 40px (จาก padding 20px ซ้ายขวา) เพื่อให้ชนขอบมนพอดี
         const adjustedMaxScroll = maxScroll + 40; 
 
-        if (moveDistance > adjustedMaxScroll) {
-            moveDistance = adjustedMaxScroll;
-        }
+        if (moveDistance > adjustedMaxScroll) moveDistance = adjustedMaxScroll;
 
-        // 4. สั่งเลื่อนแถวรูปภาพ
         track.style.transform = `translateX(${-moveDistance}px)`;
 
-        // 5. จัดการสถานะ Active (รูปกลาง) และ Side (รูปข้าง)
         slides.forEach((slide, index) => {
             slide.classList.remove('active', 'side');
             if (index === currentIndex) {
@@ -150,26 +139,48 @@
         });
     };
 
-    // ปุ่มไปข้างหน้า
-    nextButton.addEventListener('click', () => {
+    // ฟังก์ชันเลื่อน
+    const handleNext = () => {
         if (currentIndex < slides.length - 1) {
             currentIndex++;
             updateCarousel();
         }
-    });
+    };
 
-    // ปุ่มย้อนกลับ
-    prevButton.addEventListener('click', () => {
+    const handlePrev = () => {
         if (currentIndex > 0) {
             currentIndex--;
             updateCarousel();
         }
-    });
+    };
 
-    // อัปเดตตำแหน่งเมื่อมีการย่อ/ขยายหน้าจอ
+    // คลิกปุ่ม
+    nextButton.addEventListener('click', handleNext);
+    prevButton.addEventListener('click', handlePrev);
+
+    // --- ระบบ Swipe บนมือถือ ---
+    track.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    track.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, {passive: true});
+
+    const handleSwipe = () => {
+        const swipeDistance = touchStartX - touchEndX;
+        // ถ้าปัดไปทางซ้าย (ระยะบวก) ให้ไปรูปถัดไป
+        if (swipeDistance > 50) {
+            handleNext();
+        } 
+        // ถ้าปัดไปทางขวา (ระยะลบ) ให้ไปรูปก่อนหน้า
+        else if (swipeDistance < -50) {
+            handlePrev();
+        }
+    };
+
     window.addEventListener('resize', updateCarousel);
-
-    // เรียกทำงานครั้งแรกตอนโหลดหน้าเว็บ
     window.addEventListener('load', updateCarousel);
     updateCarousel();
 </script>

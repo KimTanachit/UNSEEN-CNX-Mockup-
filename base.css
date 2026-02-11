@@ -148,6 +148,8 @@ body {
     border-radius: 25px;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none; /* ป้องกันการคลุมดำรูปภาพตอนเอานิ้วไปแตะค้าง */
+    -webkit-user-drag: none; /* ป้องกันการลากรูปหลุดออกมาใน iOS/Chrome */
 }
 
 .img-box img {
