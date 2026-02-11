@@ -342,7 +342,7 @@ body {
     }
 
     .carousel-track-container {
-        gap:  20px; /* โชว์รูปหลักรูปเดียวชัดๆ */
+        gap: 10px; /* โชว์รูปหลักรูปเดียวชัดๆ */
     }
 
     .img-box {
