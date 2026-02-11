@@ -338,10 +338,15 @@ body {
     }
 
     .carousel-track-container {
-        max-width: 300px; /* โชว์รูปหลักรูปเดียวชัดๆ */
-        margin: 0 auto;
-
-        align-items: center;
+     max-width: 250px;
+        
+        /* 1. สั่งให้กล่องนี้ลอยอยู่กลางจอ (ซ้ายขวาเท่ากัน) */
+        margin: 0 auto;  /* ✅ ใช้อันนี้แทน padding-left */
+        
+        /* 2. ห้ามใส่ padding-left/right เยอะเกินไป เพราะจะไปกวนสูตร JS */
+        padding: 0;      
+        
+        overflow: hidden;
     }
 
     .img-box {
