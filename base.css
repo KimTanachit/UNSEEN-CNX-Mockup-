@@ -338,7 +338,7 @@ body {
     }
 
     .carousel-track-container {
-        max-width: 220px; /* โชว์รูปหลักรูปเดียวชัดๆ */
+        max-width: 250px; /* โชว์รูปหลักรูปเดียวชัดๆ */
     }
 
     .img-box {
